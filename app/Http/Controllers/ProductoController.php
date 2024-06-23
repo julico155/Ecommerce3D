@@ -186,8 +186,6 @@ class ProductoController extends Controller
         $p->stock_min = $request->stock_min;
         $p->precio = $request->precio;
         $p->categoria_id = $request->categoria;
-        $p->talla_id = $request->talla;
-        $p->color_id = $request->color;
         $p->es_3d = $request->has('es_3d'); 
         $p->save();
 

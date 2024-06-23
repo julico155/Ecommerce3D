@@ -31,7 +31,7 @@
         <div class="bg-white shadow-md rounded p-4 lg:p-8">
             <div class="text-center">
                 <a href="{{ route('welcome') }}">
-                    <h2 class="text-4xl text-black font-bold mb-6">Stylo Store</h2>
+                    <h2 class="text-4xl text-black font-bold mb-6">Refracgas</h2>
                 </a>
             </div>
 

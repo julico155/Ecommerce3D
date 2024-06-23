@@ -31,7 +31,7 @@
 
         <div class="container mx-auto px-4">
             @foreach ($categorias as $categoria)
-            <h2 class="text-2xl font-extrabold text-black mt-8 mb-4 ml-4 uppercase tracking-wide font-montserrat">
+            <h2 class="text-2xl font-extrabold text-gray-500 mt-8 mb-4 ml-4 uppercase tracking-wide font-montserrat">
                 {{ $categoria->categoria }}
             </h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">

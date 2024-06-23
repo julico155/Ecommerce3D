@@ -7,11 +7,11 @@
     </style>
 
     <!-- Comienzo del registro -->
-    <div class="min-h-screen flex items-center justify-center custom-bg">
+    <div class="min-h-screen flex items-center justify-center custom-bg bg-gray-100">
         <div class="bg-white w-4/5 md:w-1/2 lg:w-2/5 xl:max-w-md p-6 rounded-lg shadow-lg">
             <div class="text-center">
                 <img src="{{ asset('images/logo-prueba.jpg') }}" width="48" alt="">
-                <h2 class="text-2xl font-bold py-3">Registro</h2>
+                <h1 class="text-2xl font-bold py-3">Registro</h1>
             </div>
 
             <!-- Verificación de la validación del registro -->

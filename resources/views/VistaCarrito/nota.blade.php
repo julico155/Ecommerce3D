@@ -24,7 +24,7 @@
                     <div class="bg-white shadow-md rounded px-8 py-6 mb-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-gray-700 text-sm"><strong>STYLO STORE</strong></p>
+                                <p class="text-gray-700 text-sm"><strong>Refracgas</strong></p>
                                 <p class="text-gray-700 text-sm"><strong>Cliente:</strong> {{ $ventas[0]->cliente }}</p>
                             </div>
                             <div class="text-right">

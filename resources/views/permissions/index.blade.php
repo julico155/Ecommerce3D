@@ -1,6 +1,8 @@
 @extends('dashboard')
 
 @section('usuario')
+
+<div class="container mx-auto px-4 my-4">
     <div class="flex flex-col items-center sm:flex-row">
         <div class="mt-4 sm:ml-4">
             <a href="{{ route('user.index') }}" class="bg-indigo-500 hover:bg-indigo-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
@@ -8,7 +10,7 @@
             </a>
         </div>
         <div class="mt-4 sm:ml-4">
-            <a href="{{ route('rol.index') }}" class="bg-teal-500 hover:bg-teal-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
+            <a href="{{ route('rol.index') }}" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
                 Roles
             </a>
         </div>
@@ -47,12 +49,12 @@
 
         <div class="w-full lg:w-5/6 mx-auto mb-4">
             <div class="overflow-x-auto my-6 shadow-md rounded">
-                <table class="min-w-full border border-gray-200 mt-4">
-                    <thead>
+                <table class="min-w-full border border-orange-500 mt-4">
+                    <thead class="bg-orange-500 text-white">
                         <tr>
-                            <th class="bg-gray-200 text-left px-6 py-3">#</th>
-                            <th class="bg-gray-200 text-left px-6 py-3">Categoria</th>
-                            <th class="bg-gray-200 text-left px-6 py-3">Acciones</th>
+                            <th class="px-6 py-3">#</th>
+                            <th class="px-6 py-3">Permisos</th>
+                            <th class="px-6 py-3">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -109,4 +111,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

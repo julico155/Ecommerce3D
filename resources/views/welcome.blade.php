@@ -5,7 +5,7 @@
     <div class="bg-black bg-opacity-40 absolute inset-0"></div>
     <div class="container mx-auto py-20 text-center relative z-10 text-white">
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
-            Stylo Store
+            Refracgas
         </h1>
         <p class="mt-4 text-2xl sm:text-3xl md:text-4xl font-medium">
         </p>
@@ -121,7 +121,7 @@
 <!-- Pie de Página -->
 <footer class="bg-blue-500 text-white py-3 text-center">
     <div class="container mx-auto">
-        <p>&copy; 2023 Stylo Store. Todos los derechos reservados.</p>
+        <p>&copy; 2023 Refracgas. Todos los derechos reservados.</p>
     </div>
 </footer>
 @endsection
