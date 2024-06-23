@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\producto;
 use App\Models\venta;
 use App\Models\carrito;
 use Illuminate\Http\Request;
@@ -47,12 +48,51 @@ class StripeController extends Controller
         return redirect()->away($session->url);
     }
 
+
     public function registrarVentaTarjeta($clienteId, $total)
     {
         $venta = venta::get(); // ¿Estás seguro de que quieres usar $clienteId para la empresa_id?
         $venta->forma_pago = "tarjeta"; // Registra el método de pago como "tarjeta"
         return $venta; // Puedes retornar la venta si lo necesitas
     }
+
+    public function session2(Request $request)
+    {
+        \Stripe\Stripe::setApiKey('sk_test_51O0VIXHsQ5oOzF9ekkrLsNWazet3mfSWjVXmP20jFSSVnOehjzdgYF5a2AXhqYi8JTG1J2bbcC3HzKyb6p9tbhmD00kYH8YDsp');
+        $c = producto::where('id', $request->producto)->first();
+        $cid = $c->id;
+        $totalprice = (int)($c->precio_3d/7);
+        $two0 = "00";
+        $total = "$totalprice$two0";
+        $session = \Stripe\Checkout\Session::create([
+            'line_items'  => [
+                [
+                    'price_data' => [
+                        'currency'     => 'USD',
+                        'product_data' => [
+                            "name" => 'Compra de Modelo 3D',
+                        ],
+                        'unit_amount'  => $total,
+                    ],
+                    'quantity'   => 1,
+                ],
+
+            ],
+            'mode'        => 'payment',
+            'success_url' => route('success2', ['cid' => $cid]),
+            'cancel_url'  => route('carrito.index'),
+        ]);
+        return redirect()->away($session->url);
+    }
+
+    public function success2($cid)
+    {
+        // Lógica para manejar el éxito de la compra
+        $producto = producto::find($cid);
+
+        return view('continuar2', compact('producto'));
+    }
+
 
     public function success()
     {

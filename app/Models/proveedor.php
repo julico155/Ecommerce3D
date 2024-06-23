@@ -11,7 +11,7 @@ class proveedor extends Model
 
     public function proveedor()
     {
-        return $this->belongsTo(Proveedor::class, 'marca_id');
+        return $this->belongsTo(Proveedor::class, 'categoria_id');
     }
 
 }

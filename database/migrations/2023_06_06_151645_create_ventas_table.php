@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->decimal('total',8,2);
             $table->string('forma_pago');
+            $table->boolean('es_3d')->default(false);
 
             $table->timestamps();
         });

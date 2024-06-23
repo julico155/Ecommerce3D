@@ -17,26 +17,38 @@ class VentaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $id = auth()->user()->id;
-        $compras = venta::where('cliente_id', $id)->orderBy('id', 'desc')->get();
-        
-        // Obtener los detalles de productos para cada venta
-        $ventas = [];
-        foreach ($compras as $compra) {
-            $productosComprados = detalle_venta::where('venta_id', $compra->id)
-                ->join('productos', 'productos.id', '=', 'detalle_ventas.producto_id')
-                ->select('detalle_ventas.*', 'productos.nombre as producto_nombre', 'productos.descripcion as producto_descripcion')
-                ->get();
-            
-            $ventas[] = [
-                'venta' => $compra,
-                'productos' => $productosComprados,
-            ];
-        }
+{
+    $id = auth()->user()->id;
+    $compras = venta::where('cliente_id', $id)->orderBy('id', 'desc')->get();
 
-        return view('VistaCarrito.venta', compact('ventas'));
+    // Inicializar arrays para ventas físicas y 3D
+    $ventas_fisicas = [];
+    $ventas_3d = [];
+
+    // Obtener los detalles de productos para cada venta
+    foreach ($compras as $compra) {
+        $productosComprados = detalle_venta::where('venta_id', $compra->id)
+            ->join('productos', 'productos.id', '=', 'detalle_ventas.producto_id')
+            ->select('detalle_ventas.*', 'productos.nombre as producto_nombre', 'productos.descripcion as producto_descripcion')
+            ->get();
+
+        // Clasificar las ventas en físicas o 3D
+        $venta = [
+            'venta' => $compra,
+            'productos' => $productosComprados,
+        ];
+
+        if ($compra->es_3d) {
+            $ventas_3d[] = $venta;
+        } else {
+            $ventas_fisicas[] = $venta;
+        }
     }
+
+    return view('VistaCarrito.venta', compact('ventas_fisicas', 'ventas_3d'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,8 +64,6 @@ class VentaController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-
-        // dd($c);
         $id = auth()->user()->id;
         $c = carrito::where('cliente_id', $id)->first();
 
@@ -63,6 +73,8 @@ class VentaController extends Controller
         $venta->total = $c->total;
         $venta->forma_pago = "efectivo";
         $venta->save();
+        // dd($c);
+        
 
         $id_venta = venta::where('cliente_id', $id)->orderBy('id', 'desc')->first();
         $d = detalle_carrito::where('carrito_id', $c->id)->get();
@@ -89,6 +101,42 @@ class VentaController extends Controller
             ->log('Realizo una compra ' );
         return redirect()->route('venta.index')->with('success', 'Compra realizada con éxito');
     }
+
+
+
+    public function store2(Request $request)
+    {
+        // dd($request);
+
+        $id = auth()->user()->id;
+        $c = producto::where('id', $request->producto)->first();
+ 
+        $venta = new venta();
+        $venta->cliente_id = $id;
+        $venta->empresa_id = $id;
+        $venta->total = $c->precio_3d;
+        $venta->forma_pago = "tarjeta";
+        $venta->es_3d = true;
+        $venta->save();
+
+        $id_venta = venta::where('cliente_id', $id)->orderBy('id', 'desc')->first();
+
+            $dv = new detalle_venta();
+            $dv->venta_id = $id_venta->id;
+            $dv->producto_id = $c->id;
+            $dv->cantidad = 1;
+            $dv->precio = $c->precio_3d;
+            $dv->save();
+
+
+            // return redirect()->route('venta.index')->with('success', 'Compra realizada con éxito');
+  
+        activity()
+            ->causedBy(auth()->user()) // El usuario responsable de la actividad
+            ->log('Realizo una compra ' );
+        return redirect()->route('venta.index')->with('success', 'Compra realizada con éxito');
+    }
+
 
     public function storee(Request $request)
     {
@@ -173,13 +221,12 @@ class VentaController extends Controller
             ->select('ventas.id as venta_id', 'ventas.total', 'ventas.forma_pago', 'ventas.created_at as fecha',
             'cl.name as cliente', 'em.name as empresa'
             ,'productos.nombre', 'productos.descripcion', 'productos.imagen1', 'productos.precio as punit'
-            ,'detalle_ventas.id as id_detalle','detalle_ventas.cantidad', 'detalle_ventas.precio','productos.archivo_3d as td'
+            ,'detalle_ventas.id as id_detalle','detalle_ventas.cantidad', 'detalle_ventas.precio','productos.zip_path as td'
             )
             ->get();
-        // dd($ventas);
+        $es_3d = Venta::where('ventas.id', $id->id)->first();
 
-
-        return view('VistaCarrito.nota', compact('ventas'));
+        return view('VistaCarrito.nota', compact('ventas', 'es_3d'));
     }
 
     public function mostrarCompras()

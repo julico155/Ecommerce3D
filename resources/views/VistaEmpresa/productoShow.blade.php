@@ -46,15 +46,15 @@
                             <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                         </ol>
                         <div class="carousel-inner">
-                            @foreach ([$p->imagen1, $p->imagen2, $p->imagen3] as $index => $image)
+                            @foreach ([$p->imagen1, $p->imagen2, $p->imagen3, $p->imagen4] as $index => $image)
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset($image) }}" class="d-block w-100" alt="Foto del producto {{ $index + 1 }}">
+                                    <img src="{{ asset( 'storage/' . $image) }}" class="d-block w-100" alt="Foto del producto {{ $index + 1 }}">
                                 </div>
                             @endforeach
                             @if ($p->video)
                                 <div class="carousel-item">
                                     <video class="d-block w-100" controls>
-                                        <source src="{{ asset($p->video) }}" type="video/mp4">
+                                        <source src="{{ asset('storage/' . $p->video) }}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
@@ -90,9 +90,33 @@
                             </div>
                         </form>
                         <!-- Botón para abrir el modal, con ruta del modelo 3D -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#model3DModal">
-                            Ver en 3D
-                        </button>
+                        
+                        @if ($p->es_3d)
+                            <button type="button" class="bg-blue-500 text-white font-bold py-2 px-4 rounded" data-toggle="modal" data-target="#model3DModal">
+                                Ver en 3D
+                            </button>                        
+                            <p class="text-sm text-gray-600">Descripción: {{ $p->descripcion_3d }}</p>
+                            <p class="text-sm text-gray-600">Precio del modelo 3D: {{ $p->precio_3d }}</p>
+                            @if($p->es_formato_obj)
+                            <p class="text-sm text-gray-600">-Formato Obj</p>
+                            @endif
+                            @if($p->es_formato_gltf)
+                            <p class="text-sm text-gray-600">-Formato gltF</p>
+                            @endif
+                            @if($p->es_formato_fbx)
+                            <p class="text-sm text-gray-600">-Formato FBX</p>
+                            @endif
+                            @if($p->es_formato_stl)
+                            <p class="text-sm text-gray-600">-Formato STL</p>
+                            @endif
+                            <form action="{{ route('session') }}" method="POST">
+                                @csrf
+                                <input type="text" name="producto" hidden value="{{ $p->id }}">
+                                <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                                    Comprar modelo 3D ahora
+                                </button>
+                            </form>                            
+                        @endif
                     @else
                         <p class="text-red-600 bg-red-100 border border-red-600 rounded-md px-4 py-2">Inicia sesión para poder comprar</p>
                     @endauth
@@ -141,7 +165,7 @@
             const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
 
             // Cargar el modelo
-            const modelPath = `{{ asset($p->archivo_3d) }}`;
+            const modelPath = `{{ asset('storage/' . $p->archivo_3d) }}`;
             BABYLON.SceneLoader.Append("", modelPath, scene, function (scene) {
                 // El modelo se ha cargado correctamente
                 engine.runRenderLoop(function () {

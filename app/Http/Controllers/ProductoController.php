@@ -38,9 +38,9 @@ class ProductoController extends Controller
         $categorias = categoria::get();
         $marcas = marca::get();
         $tallas = Talla::all();
-        $color = color::all();
+        $colores = color::all();
         // dd($categorias->isEmpty());
-        return view('VistaProductos.create', compact('categorias','marcas','tallas','color'));
+        return view('VistaProductos.create', compact('categorias','marcas','tallas','colores'));
     }
 
     /**
@@ -48,8 +48,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
 {
-    // Validar los datos del formulario
-
+ 
 
     $id = auth()->user()->id;
     $p = new Producto();
@@ -58,38 +57,53 @@ class ProductoController extends Controller
     $p->precio = $request->precio;
     $p->id_propietario = $id;
     $p->categoria_id = $request->categoria;
-    $p->marca_id = $request->marca;
-    $p->stock = 0;
-    $p->stock_min = $request->cant_min;
-    $p->talla_id = $request->talla;
     $p->color_id = $request->color;
-    $p->es_3d = $request->has('es_3d'); // Guardar el valor del checkbox
+    $p->es_3d = $request->has('es_3d');
+    $p->es_formato_obj = $request->has('es_formato_obj');
+    $p->es_formato_gltf = $request->has('es_formato_gltf');
+    $p->es_formato_fbx = $request->has('es_formato_fbx');
+    $p->es_formato_stl = $request->has('es_formato_stl');
+    $p->stock = 0;
+    $p->stock_min = $request->stock_min;
+    $p->descripcion_3d = $request->descripcion_3d;
+    $p->precio_3d = $request->precio_3d;
 
-    // Manejar carga de archivo 3D
+    // Manejar carga de archivos 3D
     if ($request->hasFile('archivo_3d')) {
         $archivo = $request->file('archivo_3d');
         $archivoNombre = time() . '-' . $archivo->getClientOriginalName();
-        $archivo->move(public_path('models'), $archivoNombre);
+        $path = $archivo->storeAs('public/models', $archivoNombre);
         $p->archivo_3d = 'models/' . $archivoNombre;
     }
 
+    // Manejar carga de archivo ZIP
+    if ($request->hasFile('zip_path')) {
+        $zip = $request->file('zip_path');
+        $zipNombre = time() . '-' . $zip->getClientOriginalName();
+        $path = $zip->storeAs('public/zip', $zipNombre);
+        $p->zip_path = 'zip/' . $zipNombre;
+    }
+
     // Manejar carga de imágenes
-    $destino = 'img/fotosProductos/';
-    for ($i = 1; $i <= 3; $i++) {
-        if ($request->hasFile('foto'.$i)) {
-            $file = $request->file('foto'.$i);
+    if ($request->hasFile('fotos')) {
+        $destino = 'public/img/fotosProductos/';
+        $files = $request->file('fotos');
+        foreach ($files as $key => $file) {
             $fotoNombre = time() . '-' . $file->getClientOriginalName();
-            $file->move(public_path($destino), $fotoNombre);
-            $p->{'imagen'.$i} = $destino . $fotoNombre;
+            $path = $file->storeAs($destino, $fotoNombre);
+            $p->{'imagen'.($key+1)} = 'img/fotosProductos/' . $fotoNombre;
         }
     }
+
+
+        
 
     // Manejar carga de video
     if ($request->hasFile('video')) {
         $video = $request->file('video');
-        $videoName = time() . '-' . $video->getClientOriginalName();
-        $video->move(public_path('videos'), $videoName);
-        $p->video = 'videos/' . $videoName;
+        $videoNombre = time() . '-' . $video->getClientOriginalName();
+        $path = $video->storeAs('public/videos', $videoNombre);
+        $p->video = 'videos/' . $videoNombre;
     }
 
     $p->save();
@@ -101,6 +115,8 @@ class ProductoController extends Controller
     return redirect()->route('producto.index')->with('success', 'Producto creado exitosamente.');
 }
 
+    
+    
 
     /**
      * Display the specified resource.

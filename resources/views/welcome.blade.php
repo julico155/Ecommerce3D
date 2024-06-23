@@ -48,7 +48,7 @@
             <a href="{{ route('producto.show', $producto) }}"
                 class="bg-white rounded-lg p-4 flex flex-col items-center hover:bg-dbb6ee transition duration-300 ease-in-out transform hover:-translate-y-1">
                 <div class="relative">
-                    <img src="{{ asset($producto->imagen1) }}" alt="Foto del producto" class="w-full h-40 object-contain">
+                    <img src="{{ asset('storage/' . $producto->imagen1) }}" alt="Foto del producto" class="w-full h-40 object-contain">
                     <div class="absolute top-2 right-2 py-1 px-1 rounded-full text-xs font-bold
                         @if ($producto->stock > 0)
                             bg-green-500 text-white
@@ -69,7 +69,6 @@
                     @endif
                 </div>
                 <h3 class="text-lg font-bold text-black my-2">{{ $producto->nombre }}</h3>
-                <p class="text-gray-500">{{ $producto->descripcion }}</p>
                 <p class="text-black font-bold text-xl my-2">Bs. {{ number_format($producto->precio, 2) }}</p>
                 <button class="mt-4 py-2 px-4
                     @if ($producto->stock > 0)

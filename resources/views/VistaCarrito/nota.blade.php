@@ -40,9 +40,13 @@
                                         <th class="bg-gray-100 text-left px-6 py-3">Item</th>
                                         <th class="bg-gray-100 text-left px-6 py-3">Cantidad</th>
                                         <th class="bg-gray-100 text-left px-6 py-3">Descripción</th>
+                                        @if(!$es_3d->es_3d)
                                         <th class="bg-gray-100 text-left px-6 py-3">P. Unitario</th>
+                                        @endif
                                         <th class="bg-gray-100 text-left px-6 py-3">P. Total</th>
+                                        @if($es_3d->es_3d)
                                         <th class="bg-gray-100 text-left px-6 py-3">Descargar</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,13 +59,17 @@
                                                 <p class="text-xs text-left">{{ $venta->descripcion }}</p>
                                                 <!-- Agregar más detalles si es necesario -->
                                             </td>
+                                            @if(!$es_3d->es_3d)
                                             <td class="border-t px-6 py-4">BOB {{ number_format($venta->punit, 2) }}</td>
+                                            @endif
                                             <td class="border-t px-6 py-4">BOB {{ number_format($venta->precio, 2) }}</td>
+                                            @if($es_3d->es_3d)
                                             <td class="border-t px-6 py-4">
-                                                <a href="{{ asset($venta->td) }}" download="1718579367-FinalBaseMesh.obj" class="btn btn-primary">
+                                                <a href="{{ asset( 'storage/' . $venta->td) }}" download="descarga.zip" class="btn btn-primary">
                                                     Descargar Modelo 3D
                                                 </a>
                                             </td>
+                                            @endif
                                             
                                         </tr>
                                     @endforeach

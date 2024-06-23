@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('Nombre');
             $table->string('Telefono');
-            $table->unsignedBigInteger('marca_id')->nullable();
-            $table->foreign('marca_id')->references('id')->on('marcas');
+            $table->unsignedBigInteger('categoria_id')->nullable();
+            $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->timestamps();
         });
     }

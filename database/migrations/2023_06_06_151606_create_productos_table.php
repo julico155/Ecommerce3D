@@ -17,27 +17,29 @@ return new class extends Migration
             $table->string('descripcion');
             $table->unsignedBigInteger('id_propietario')->nullable();
             $table->foreign('id_propietario')->references('id')->on('users');
-            $table->decimal('precio',8,2);
+            $table->decimal('precio', 8, 2);
             $table->string('imagen1')->nullable();
             $table->string('imagen2')->nullable();
             $table->string('imagen3')->nullable();
+            $table->string('imagen4')->nullable();
             $table->string('video')->nullable();
-            $table->integer('stock')->nullable();
-            $table->string('archivo_3d')->nullable();
+            $table->integer('stock')->default(0);
             $table->integer('stock_min')->nullable();
+            $table->string('archivo_3d')->nullable();
+            $table->string('descripcion_3d')->nullable();
             $table->string('zip_path')->nullable();
             $table->boolean('es_3d')->default(false);
-            $table->unsignedBigInteger('categoria_id')->nullable();
-            $table->unsignedBigInteger('marca_id')->nullable();
+            $table->decimal('precio_3d', 8, 2)->nullable();
+            $table->boolean('es_formato_obj')->default(false);
+            $table->boolean('es_formato_gltf')->default(false);
+            $table->boolean('es_formato_fbx')->default(false);
+            $table->boolean('es_formato_stl')->default(false);
+            $table->unsignedBigInteger('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categorias');
-            $table->foreign('marca_id')->references('id')->on('marcas');
-            $table->unsignedBigInteger('talla_id')->nullable();
-            $table->foreign('talla_id')->references('id')->on('tallas');
-            $table->unsignedBigInteger('color_id')->nullable();
+            $table->unsignedBigInteger('color_id');
             $table->foreign('color_id')->references('id')->on('colors');
             $table->timestamps();
         });
-
     }
 
     /**

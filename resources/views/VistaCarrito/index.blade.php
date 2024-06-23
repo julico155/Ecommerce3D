@@ -23,7 +23,7 @@
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-16 w-16">
                                     <img class="h-16 w-16 rounded-lg object-cover"
-                                        src="{{ asset($producto->imagen1) }}"
+                                        src="{{ asset('storage/' . $producto->imagen1) }}"
                                         alt="{{ $producto->nombre }}">
                                 </div>
                                 <div class="ml-4">

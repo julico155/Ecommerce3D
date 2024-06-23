@@ -6,6 +6,7 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompraController;
+use App\Http\Controllers\IAController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MarcaController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\EfectivoController;
 use App\Http\Controllers\TallaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,7 @@ Route::resource('empresa', EmpresaController::class);
 
 Route::resource('venta', VentaController::class);
 Route::post('/venta/store', 'VentaController@storee')->name('venta.storee');
+Route::post('/venta2', 'App\Http\Controllers\VentaController@store2')->name('venta.store2');
 
 Route::get('rol/{role}/assign-permissions', [Roles::class, 'assignPermissions'])->name('rol.assign_permissions');
 Route::put('rol/{role}/update-permissions', [Roles::class, 'updatePermissions'])->name('rol.update_permissions');
@@ -85,6 +88,17 @@ Route::put('carrito$carrito', [CarritoController::class, 'update'])->name('carri
 
 Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
 Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
+
+Route::post('/session', 'App\Http\Controllers\StripeController@session2')->name('session');
+Route::get('/success2/{id}', 'App\Http\Controllers\StripeController@success2')->name('success2');
+
+
+Route::post('/generate-ia-image', [IAController::class, 'generateIAImage'])->name('generarImagenIA');
+
+Route::get('/generar-imagen/{id}', 'App\Http\Controllers\IAController@generarimagen')->name('generarimagen');
+
+Route::post('/guardar-imagen-ia', [IAController::class, 'guardarImagenIA'])->name('guardarImagenIA');
+
 
 Route::resource('pedido', PedidoController::class)->except(['update']);
 // Route::put('pedido$pedido', [PedidoController::class, 'update'])->name('.update');

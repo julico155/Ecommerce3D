@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categoria;
 use App\Models\marca;
 use App\Models\proveedor;
 use Illuminate\Http\Request;
@@ -15,15 +16,16 @@ class ProveedorController extends Controller
         $proveedores = proveedor::get();
         $arrayProveedores = [];
         foreach ($proveedores as $p) {
-            $marca = marca::where('id', $p->marca_id)->first();
+            $marca = categoria::where('id', $p->categoria_id)->first();
 
             $arrayProveedores[] = [
                 "proveedor_id"    => $p->id,
                 "producto_Nombre"    => $p->Nombre,
                 "producto_Telefono"    => $p->Telefono,
-                "marca"              => $marca->nombre,
+                "marca"              => $marca->categoria,
             ];
         }
+        
 
         return view('VistaProveedor.index', compact('arrayProveedores'));
     }
@@ -33,7 +35,7 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        $marcas = marca::get();
+        $marcas = categoria::get();
         // dd($categorias->isEmpty());
         return view('VistaProveedor.create', compact('marcas'));
     }
@@ -46,7 +48,7 @@ class ProveedorController extends Controller
         $p = new proveedor();
         $p->nombre = $request->nombre;
         $p->telefono = $request->telefono;
-        $p->marca_id = $request->marca;
+        $p->categoria_id = $request->marca;
         $p->save();
 
         activity()
@@ -71,7 +73,7 @@ class ProveedorController extends Controller
     {
         //
         $p = proveedor::find($id);
-        $marcas = marca::get();
+        $marcas = categoria::get();
         return view('vistaproveedor.edit', compact('p','marcas'));
     }
 
@@ -83,7 +85,7 @@ class ProveedorController extends Controller
         $p = proveedor::where('id', $id)->first();
         $p->Nombre = $request->nombre;
         $p->Telefono = $request->telefono;
-        $p->marca_id = $request->marca;
+        $p->categoria_id = $request->marca;
         $p->save();
         activity()
     ->causedBy(auth()->user()) // El usuario responsable de la actividad
