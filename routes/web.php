@@ -4,12 +4,11 @@ use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\ColorController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\IAController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
-use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\Permiso;
 use App\Http\Controllers\PermissionController;
@@ -20,7 +19,6 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\EfectivoController;
-use App\Http\Controllers\TallaController;
 
 
 /*
@@ -77,9 +75,7 @@ Route::resource('producto', ProductoController::class);
 
 
 Route::resource('categoria', CategoriaController::class);
-Route::resource('marca',MarcaController::class);
-Route::resource('color',ColorController::class);
-Route::resource('talla',TallaController::class);
+Route::resource('material',MaterialController::class);
 Route::resource('stock',StockController::class);
 Route::resource('proveedor',ProveedorController::class);
 Route::resource('compra', CompraController::class);

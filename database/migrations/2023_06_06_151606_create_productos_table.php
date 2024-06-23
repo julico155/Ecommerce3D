@@ -36,8 +36,8 @@ return new class extends Migration
             $table->boolean('es_formato_stl')->default(false);
             $table->unsignedBigInteger('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categorias');
-            $table->unsignedBigInteger('color_id');
-            $table->foreign('color_id')->references('id')->on('colors');
+            $table->unsignedBigInteger('material_id');
+            $table->foreign('material_id')->references('id')->on('materiales');
             $table->timestamps();
         });
     }

@@ -1,11 +1,11 @@
 @extends('dashboard')
 
 @section('compra')
-    @if ($marcas->isEmpty())
+    @if ($categorias->isEmpty())
         <div class="w-full lg:w-1/2 mx-auto mb-4">
             <p class="my-8 text-red-600 bg-red-100 border border-red-600 rounded-md px-4 py-2 mb-4">
-                <a href="{{ route('marca.create') }}">
-                    Primero debe registrar una marca
+                <a href="{{ route('categoria.create') }}">
+                    Primero debe registrar una categoria
                 </a>
             </p>
         </div>
@@ -18,14 +18,14 @@
                 @csrf
 
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="marca">Marca:</label>
-                    <select name="marca" id="marca" required
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="categoria">categoria:</label>
+                    <select name="categoria" id="categoria" required
                         class="border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500">
-                        <option selected disabled>Elige una Marca</option>
-                        @forelse ($marcas as $m)
+                        <option selected disabled>Elige una categoria</option>
+                        @forelse ($categorias as $m)
                             <option value="{{ $m->id }}">{{ $m->categoria }}</option>
                         @empty
-                            <option disabled>Registra una nueva marca</option>
+                            <option disabled>Registra una nueva categoria</option>
                         @endforelse
                     </select>
                 </div>

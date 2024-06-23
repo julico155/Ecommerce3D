@@ -1,40 +1,44 @@
 @extends('dashboard')
 
 @section('compra')
-    <div class="flex flex-col items-center sm:flex-row">
-        <div class="mt-4 sm:ml-4">
-            <a href="{{ route('pedido.index') }}" class="bg-indigo-500 hover:bg-indigo-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
-                Solicitar Pedidos
-            </a>
-        </div>
-        <div class="mt-4 sm:ml-4">
-            <a href="{{ route('compra.index') }}" class="bg-teal-500 hover:bg-teal-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
-                Notas de compras a proveedores
-            </a>
-        </div>
-        <div class="mt-4 sm:ml-4">
-            <a href="{{ route('proveedor.index') }}" class="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
-                Proveedores
-            </a>
-        </div>
-    </div>
-
-    <div class="container mx-auto px-4 my-4">
+    <div class="container mx-auto px-4 my-4 ">
         <div class="flex flex-col items-center sm:flex-row">
             <div class="mt-4 sm:ml-4">
-                <a href="{{ route('proveedor.create') }}" class="bg-green-500 text-white px-4 py-2 rounded-md mr-2">Registrar
-                    Proveedor</a>
+                <a href="{{ route('pedido.index') }}"
+                    class="bg-indigo-500 hover:bg-indigo-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
+                    Solicitar Pedidos
+                </a>
+            </div>
+            <div class="mt-4 sm:ml-4">
+                <a href="{{ route('compra.index') }}"
+                    class="bg-teal-500 hover:bg-teal-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
+                    Notas de compras a proveedores
+                </a>
+            </div>
+            <div class="mt-4 sm:ml-4">
+                <a href="{{ route('proveedor.index') }}"
+                    class="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
+                    Proveedores
+                </a>
             </div>
         </div>
-        <div class="w-full lg:w-1/2 mx-auto mb-4">
-            <div class="overflow-x-auto my-6 shadow-md rounded">
+
+        <div class="my-8 mx-8">
+            <div class="container mx-auto">
+                <div class="mb-8 flex justify-between items-center">
+                    <h2 class="text-lg font-bold">Proveedores</h2>
+                    <a href="{{ route('proveedor.create') }}"
+                        class="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md mr-2">Registrar
+                        Proveedor
+                    </a>
+                </div>
                 <table class="min-w-full border border-gray-200 mt-4">
                     <thead>
                         <tr>
                             <th class="bg-gray-200 py-2 px-4 border-b text-left">#</th>
                             <th class="bg-gray-200 py-2 px-4 border-b text-left">Nombre</th>
                             <th class="bg-gray-200 py-2 px-4 border-b text-left">Telefono</th>
-                            <th class="bg-gray-200 py-2 px-4 border-b text-left">Marca</th>
+                            <th class="bg-gray-200 py-2 px-4 border-b text-left">Categoria</th>
                             <th class="bg-gray-200 py-2 px-4 border-b">Acciones</th>
                         </tr>
                     </thead>
@@ -58,7 +62,7 @@
                                 </td>
                                 <td class="text-center py-2 px-4 border-b">
                                     <p class="font-semibold text-left">
-                                        {{ $p['marca']}}
+                                        {{ $p['categoria'] }}
                                     </p>
                                 </td>
                                 <td class="text-center py-2 px-4 border-b">
@@ -71,10 +75,10 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
-                                                width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5"
-                                                stroke="currentColor" fill="none" stroke-linecap="round"
-                                                stroke-linejoin="round">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-trash" width="20" height="20"
+                                                viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" />
                                                 <line x1="4" y1="7" x2="20" y2="7" />
                                                 <line x1="10" y1="11" x2="10" y2="17" />
@@ -88,14 +92,10 @@
 
                             </tr>
                         @empty
-                            <td class="text-center py-2 px-4 border-b">id</td>
-                            <td class="text-center py-2 px-4 border-b">nombre</td>
-                            <td class="text-center py-2 px-4 border-b">telf</td>
-                            <td class="text-center py-2 px-4 border-b">
-                                <div class="flex justify-center">
-                                    editar
-                                </div>
-                            </td>
+                            <tr>
+                                <td colspan="5" class="text-center py-2 px-4 border-b" style="color: red"> No hay
+                                    registros</td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>

@@ -13,20 +13,12 @@ class producto extends Model
     {
         return $this->belongsTo(categoria::class);
     }
-    public function marca()
-    {
-        return $this->belongsTo(Marca::class, 'marca_id');
-    }
     public function stock()
     {
     return $this->hasOne(Stock::class);
     }
-    public function talla()
+    public function material()
     {
-        return $this->belongsTo(Talla::class, 'talla_id');
-    }
-    public function color()
-    {
-        return $this->belongsTo(Color::class);
+        return $this->belongsTo(Material::class);
     }
 }

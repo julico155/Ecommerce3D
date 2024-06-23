@@ -9,23 +9,13 @@
             </a>
         </div>
         <div class="mt-4 sm:ml-4">
-            <a href="{{ route('marca.index') }}" class="bg-teal-500 hover:bg-teal-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
-                Marcas
-            </a>
-        </div>
-        <div class="mt-4 sm:ml-4">
             <a href="{{ route('producto.index') }}" class="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
                 Productos
             </a>
         </div>
         <div class="mt-4 sm:ml-4">
-            <a href="{{ route('talla.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
-                Tallas
-            </a>
-        </div>
-        <div class="mt-4 sm:ml-4">
-            <a href="{{ route('color.index') }}" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
-                Colores
+            <a href="{{ route('material.index') }}" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out">
+                Materiales
             </a>
         </div>
     </div>
@@ -33,8 +23,8 @@
 
 <div class="grid grid-cols-2 gap-6">
     <div class="w-full lg:w-3/4 mx-auto mb-4">
-        <h2 class="text-2xl font-bold text-black my-4 ml-4">Colores</h2>
-        <form action="{{ route('color.store') }}" method="POST" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h2 class="text-2xl font-bold text-black my-4 ml-4">Materiales</h2>
+        <form action="{{ route('material.store') }}" method="POST" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre">Nombre:</label>
@@ -48,7 +38,7 @@
 
     <!-- Por nombre -->
     <div class="w-full lg:w-5/6 mx-auto mb-4">
-        <!-- Tabla de colores por nombre -->
+        <!-- Tabla de materiales por nombre -->
         <div class="overflow-x-auto my-6 shadow-md rounded">
             <table class="min-w-full border border-gray-200 mt-4">
                 <thead>
@@ -59,25 +49,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($colores as $color)
+                    @forelse ($materiales as $material)
                         <tr>
                             <td class="text-center py-2 px-4 border-b">
                                 <p class="font-semibold text-left">
-                                    {{ $color->id }}
+                                    {{ $material->id }}
                                 </p>
                             </td>
 
                             <td class="text-center py-2 px-4 border-b">
                                 <p class="font-semibold text-center">
-                                    {{ $color->nombre }}
+                                    {{ $material->nombre }}
                                 </p>
                             </td>
 
                             <td class="text-center py-2 px-4 border-b">
-                                <a href="{{ route('color.edit', $color->id) }}" class="text-green-500 hover:text-green-700 mr-2">
+                                <a href="{{ route('material.edit', $material->id) }}" class="text-green-500 hover:text-green-700 mr-2">
                                     Edit
                                 </a>
-                                <form action="{{ route('color.destroy', $color->id) }}" method="POST" class="inline-block">
+                                <form action="{{ route('material.destroy', $material->id) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:text-red-700">

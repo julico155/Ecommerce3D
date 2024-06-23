@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\categoria;
 use App\Models\compra;
 use App\Models\DetalleCompra;
-use App\Models\marca;
 use App\Models\Pedido;
 use App\Models\pedido_detalle;
 use App\Models\producto;
@@ -35,7 +34,6 @@ class PedidoController extends Controller
         $productos = Producto::whereRaw('stock <= stock_min')->get();
 
         foreach ($productos as $p) {
-            $marca = categoria::where('id', $p->categoria_id)->first();
             $proveedores = Proveedor::where('categoria_id', $p->categoria_id)->get();
             $arrayProductos[] = [
                 "producto_id"    => $p->id,
@@ -43,7 +41,6 @@ class PedidoController extends Controller
                 "producto_descripcion"    => $p->descripcion,
                 "producto_stock"     => $p->stock,
                 "producto_stock_min" => $p->stock_min,
-                "marca"              => $marca->categoria,
                 "proveedor"          => $proveedores,
             ];
         }

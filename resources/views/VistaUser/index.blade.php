@@ -31,48 +31,44 @@
         </div>
 
 
-        <div class="my-8 mx-8">
-            <div class="container mx-auto">
-                <div class="overflow-x-auto mx-auto bg-white shadow-md rounded px-8 py-6">
-                    <h2 class="text-2xl text-black font-bold mb-6">Lista de Usuarios</h2>
-                    <table class="min-w-full bg-white text-center">
-                        <thead class="bg-indigo-500 text-white">
-                            <tr>
-                                <th class="py-2 px-4 border-b">ID</th>
-                                <th class="py-2 px-4 border-b">Nombre</th>
-                                <th class="py-2 px-4 border-b">Email</th>
-                                <th class="py-2 px-4 border-b">Rol</th>
-                                <th class="py-2 px-4 border-b"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                                <tr>
-                                    <td class="py-2 px-4 border-b">{{ $user->id }}</td>
-                                    <td class="py-2 px-4 border-b">{{ $user->name }}</td>
-                                    <td class="py-2 px-4 border-b">{{ $user->email }}</td>
-                                    <td class="py-2 px-4 border-b">
-                                        @if ($user->roles->isNotEmpty())
-                                            {{ $user->roles->first()->name }}
-                                        @else
-                                            Sin Rol
-                                        @endif
-                                    </td>
-                                    <td class="py-2 px-4 border-b gap-2 flex justify-center">
-                                        <a href="{{ route('user.edit', $user->id) }}"
-                                            class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">
-                                            Editar
-                                        </a>
-                                        <a href="{{ route('user.assign_role', $user->id) }}"
-                                            class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">
-                                            Roles
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="container mx-auto px-4 mt-8">
+            <h2 class="text-2xl text-black font-bold mb-6">Lista de Usuarios</h2>
+            <table class="min-w-full bg-white text-center">
+                <thead class="bg-indigo-500 text-white">
+                    <tr>
+                        <th class="py-2 px-4 border-b">ID</th>
+                        <th class="py-2 px-4 border-b">Nombre</th>
+                        <th class="py-2 px-4 border-b">Email</th>
+                        <th class="py-2 px-4 border-b">Rol</th>
+                        <th class="py-2 px-4 border-b"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td class="py-2 px-4 border-b">{{ $user->id }}</td>
+                            <td class="py-2 px-4 border-b">{{ $user->name }}</td>
+                            <td class="py-2 px-4 border-b">{{ $user->email }}</td>
+                            <td class="py-2 px-4 border-b">
+                                @if ($user->roles->isNotEmpty())
+                                    {{ $user->roles->first()->name }}
+                                @else
+                                    Sin Rol
+                                @endif
+                            </td>
+                            <td class="py-2 px-4 border-b gap-2 flex justify-center">
+                                <a href="{{ route('user.edit', $user->id) }}"
+                                    class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">
+                                    Editar
+                                </a>
+                                <a href="{{ route('user.assign_role', $user->id) }}"
+                                    class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">
+                                    Roles
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     @endsection

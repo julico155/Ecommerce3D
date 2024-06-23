@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use App\Models\categoria;
-use App\Models\color;
+use App\Models\Material;
 use App\Models\producto;
 use App\Models\User;
-use App\Models\marca;
 use App\Models\stock;
-use App\Models\Talla; 
 use Illuminate\Http\Request;
 use ZipArchive;
 class ProductoController extends Controller
@@ -36,11 +34,9 @@ class ProductoController extends Controller
     public function create()
     {
         $categorias = categoria::get();
-        $marcas = marca::get();
-        $tallas = Talla::all();
-        $colores = color::all();
+        $materiales = Material::all();
         // dd($categorias->isEmpty());
-        return view('VistaProductos.create', compact('categorias','marcas','tallas','colores'));
+        return view('VistaProductos.create', compact('categorias','materiales'));
     }
 
     /**
@@ -57,7 +53,7 @@ class ProductoController extends Controller
     $p->precio = $request->precio;
     $p->id_propietario = $id;
     $p->categoria_id = $request->categoria;
-    $p->color_id = $request->color;
+    $p->material_id = $request->material;
     $p->es_3d = $request->has('es_3d');
     $p->es_formato_obj = $request->has('es_formato_obj');
     $p->es_formato_gltf = $request->has('es_formato_gltf');
@@ -137,11 +133,9 @@ class ProductoController extends Controller
     public function edit(producto $producto)
     {
         $categorias = categoria::get();
-        $marcas = marca::get();
         $p = producto::find($producto->id);
-        $tallas = Talla::all();
-        $color = color::all();
-        return view('VistaProductos.edit', compact('p', 'categorias','marcas','tallas','color'));
+        $material = Material::all();
+        return view('VistaProductos.edit', compact('p', 'categorias','material'));
     }
 
     /**
@@ -217,26 +211,21 @@ class ProductoController extends Controller
     public function verproducto(Request $request)
     {
         $categorias = Categoria::all();
-    $colores = Color::all();
-    $tallas = Talla::all();
+    $materiales = Material::all();
         $productos = Producto::query();
 
         if ($request->has('categoria')) {
             $productos->where('categoria_id', $request->categoria);
         }
 
-        if ($request->has('color')) {
-            $productos->where('color_id', $request->color);
-        }
-
-        if ($request->has('talla')) {
-            $productos->where('talla_id', $request->talla);
+        if ($request->has('materiales')) {
+            $productos->where('material_id', $request->material);
         }
 
         $productos = $productos->get();
 
-        // Otras lógicas, como obtener las categorías, colores y tallas para los filtros
+        // Otras lógicas, como obtener las categorías, materiales y tallas para los filtros
 
-        return view('ver-productos', compact('productos', 'categorias', 'colores', 'tallas'));
+        return view('ver-productos', compact('productos', 'categorias', 'materiales'));
     }
 }

@@ -9,8 +9,7 @@ use App\Models\carrito;
 use App\Models\categoria;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use App\Models\Talla;
-use App\Models\color;
+use App\Models\Material;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 
@@ -30,11 +29,11 @@ class DatabaseSeeder extends Seeder
 
         $this->roles();
         $this->cargarUsuarios();
-        $this->cargarTalla();
         $this->cargarCategoria();
-        $this->cargarColores();
+        $this->cargarmateriales();
     }
-    public function roles(){
+    public function roles()
+    {
         $administrador            = Role::create(['name' => 'administrador']);
         $cliente        = Role::create(['name' => 'cliente']);
         $vendedor    = Role::create(['name' => 'vendedor']);
@@ -46,7 +45,8 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'AdmProductos'])->syncRoles([$administrador]);
         ////////////
     }
-    public function cargarUsuarios(){
+    public function cargarUsuarios()
+    {
 
         $user = new User();
         //$user->id = 1;
@@ -86,7 +86,7 @@ class DatabaseSeeder extends Seeder
         $user->password = bcrypt('12345678');
         $user->profile_photo_path = 'img/default.png';
         $user->assignRole('cliente');
-        
+
         $user->save();
 
         $carrito = new carrito();
@@ -94,130 +94,18 @@ class DatabaseSeeder extends Seeder
         $carrito->total = 0;
         $carrito->estado = 'pendiente';
         $carrito->save();
-
-        
     }
-    public function cargarTalla(){
-
-        //POR NUMERO------------------------------------------
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '36';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '37';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '38';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '39';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '40';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '41';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '42';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '43';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '44';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '45';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '46';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = '';
-        $talla->tipo_talla_numero = '47';
-        $talla->save();
-
-        //-----POR LETRAS--------------------------------------
-        $talla = new Talla();
-        $talla->tipo_talla_letra = 'XXS';
-        $talla->tipo_talla_numero = '';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = 'XS';
-        $talla->tipo_talla_numero = '';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = 'S';
-        $talla->tipo_talla_numero = '';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = 'M';
-        $talla->tipo_talla_numero = '';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = 'L';
-        $talla->tipo_talla_numero = '';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = 'XL';
-        $talla->tipo_talla_numero = '';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = 'XXL';
-        $talla->tipo_talla_numero = '';
-        $talla->save();
-
-        $talla = new Talla();
-        $talla->tipo_talla_letra = 'XXXL';
-        $talla->tipo_talla_numero = '';
-        $talla->save();
-
+    public function cargarmateriales()
+    {
+        //materiales de la prenda
+        Material::create(['nombre' => 'Acero fundido']);
+        Material::create(['nombre' => 'Acero Inoxidable']);
+        Material::create(['nombre' => 'Alumnio']);
+        Material::create(['nombre' => 'Hierro']);
+        Material::create(['nombre' => 'Hierro negro']);
     }
-    public function cargarColores(){
-        //Colores de la prenda
-        color::create(['nombre' => 'Negro']);
-        color::create(['nombre' => 'Blanco']);
-        color::create(['nombre' => 'Azul']);
-        color::create(['nombre' => 'Rojo']);
-        color::create(['nombre' => 'Verde']);
-        color::create(['nombre' => 'Amarillo']);
-        color::create(['nombre' => 'Celeste']);
-        color::create(['nombre' => 'Rosado']);
-        color::create(['nombre' => 'Plomo']);
-        color::create(['nombre' => 'Cafe']);
-        color::create(['nombre' => 'Naranja']);
-        color::create(['nombre' => 'Lila']);
-    }
-    public function cargarCategoria(){
+    public function cargarCategoria()
+    {
 
         $cat = new categoria();
         $cat->categoria = 'Parrillas';
@@ -254,6 +142,5 @@ class DatabaseSeeder extends Seeder
         $cat = new categoria();
         $cat->categoria = 'Cocinas';
         $cat->save();
-
     }
 }

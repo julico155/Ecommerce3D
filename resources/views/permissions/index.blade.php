@@ -27,11 +27,11 @@
     </div>
 
     <div class="grid grid-cols-2 gap-6">
-        <div class="w-full lg:w-2/3 mx-auto mb-4">
-            <h2 class="text-2xl font-bold text-black my-4 ml-4">
-                Permisos</h2>
+        <div class="w-full lg:w-2/3 mx-auto">
+            <h2 class="text-2xl font-bold text-black my-4 mt-8">
+               Añadir Permisos</h2>
             <form action="{{ route('permisos.store') }}" method="POST" enctype="multipart/form-data"
-                class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                class="mb-4">
                 @csrf
 
                 <div class="mb-4">

@@ -9,14 +9,6 @@
                 </a>
             </p>
         </div>
-    @elseif($marcas->isEmpty())
-        <div class="w-full lg:w-1/2 mx-auto mb-4">
-            <p class="my-8 text-red-600 bg-red-100 border border-red-600 rounded-md px-4 py-2 mb-4">
-                <a href="{{ route('marca.create') }}">
-                    Primero debe registrar una marca
-                </a>
-            </p>
-        </div>
     @else
         <div class="w-full lg:w-1/2 mx-auto my-4">
 

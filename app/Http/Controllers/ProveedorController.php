@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\categoria;
-use App\Models\marca;
 use App\Models\proveedor;
 use Illuminate\Http\Request;
 class ProveedorController extends Controller
@@ -16,13 +15,13 @@ class ProveedorController extends Controller
         $proveedores = proveedor::get();
         $arrayProveedores = [];
         foreach ($proveedores as $p) {
-            $marca = categoria::where('id', $p->categoria_id)->first();
+            $category = categoria::where('id', $p->categoria_id)->first();
 
             $arrayProveedores[] = [
                 "proveedor_id"    => $p->id,
                 "producto_Nombre"    => $p->Nombre,
                 "producto_Telefono"    => $p->Telefono,
-                "marca"              => $marca->categoria,
+                "categoria"              => $category->categoria,
             ];
         }
         
@@ -35,9 +34,9 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        $marcas = categoria::get();
+        $categorias = categoria::get();
         // dd($categorias->isEmpty());
-        return view('VistaProveedor.create', compact('marcas'));
+        return view('VistaProveedor.create', compact('categorias'));
     }
 
     /**
@@ -48,7 +47,7 @@ class ProveedorController extends Controller
         $p = new proveedor();
         $p->nombre = $request->nombre;
         $p->telefono = $request->telefono;
-        $p->categoria_id = $request->marca;
+        $p->categoria_id = $request->categoria;
         $p->save();
 
         activity()
@@ -73,8 +72,8 @@ class ProveedorController extends Controller
     {
         //
         $p = proveedor::find($id);
-        $marcas = categoria::get();
-        return view('vistaproveedor.edit', compact('p','marcas'));
+        $categorias = categoria::get();
+        return view('vistaproveedor.edit', compact('p','categorias'));
     }
 
     /**
@@ -85,7 +84,7 @@ class ProveedorController extends Controller
         $p = proveedor::where('id', $id)->first();
         $p->Nombre = $request->nombre;
         $p->Telefono = $request->telefono;
-        $p->categoria_id = $request->marca;
+        $p->categoria_id = $request->categoria;
         $p->save();
         activity()
     ->causedBy(auth()->user()) // El usuario responsable de la actividad

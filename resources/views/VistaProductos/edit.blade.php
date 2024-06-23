@@ -1,16 +1,12 @@
 @extends('dashboard')
 
 @section('producto')
-    @if ($categorias->isEmpty() || $marcas->isEmpty())
+    @if ($categorias->isEmpty() || $categorias->isEmpty())
         <div class="w-full lg:w-1/2 mx-auto mb-4">
             <p class="my-8 text-red-600 bg-red-100 border border-red-600 rounded-md px-4 py-2 mb-4">
                 @if ($categorias->isEmpty())
                     <a href="{{ route('categoria.create') }}" class="text-black hover:underline">
                         Primero debe registrar una categoría
-                    </a>
-                @else
-                    <a href="{{ route('marca.index') }}" class="text-black hover:underline">
-                        Primero debe registrar una marca
                     </a>
                 @endif
             </p>
@@ -22,38 +18,28 @@
                 @csrf
                 @method('PUT')
 
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <label for="categoria" class="text-gray-600 font-semibold text-sm">Categoría:</label>
-                        <select name="categoria" id="categoria" required
-                            class="border border-gray-400 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-green-500">
-                            <option disabled>Elige una categoría</option>
-                            @foreach ($categorias as $c)
-                                <option value="{{ $c->id }}" {{ $p->categoria_id == $c->id ? 'selected' : '' }}>{{ $c->categoria }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div>
-                        <label for="marca" class="text-gray-600 font-semibold text-sm">Marca:</label>
-                        <select name="marca" id="marca" required
-                            class="border border-gray-400 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-green-500">
-                            <option disabled>Elige una marca</option>
-                            @forelse ($marcas as $m)
-                                <option value="{{ $m->id }}" {{ $p->marca_id == $m->id ? 'selected' : '' }}>{{ $m->nombre }}</option>
-                            @empty
-                                <option disabled>No hay marcas registradas</option>
-                            @endforelse
-                        </select>
-                    </div>
+                <div>
+                    <label for="categoria" class="text-gray-600 font-semibold text-sm">Categoría:</label>
+                    <select name="categoria" id="categoria" required
+                        class="border border-gray-400 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-green-500">
+                        <option disabled>Elige una categoría</option>
+                        @foreach ($categorias as $c)
+                            <option value="{{ $c->id }}" {{ $p->categoria_id == $c->id ? 'selected' : '' }}>
+                                {{ $c->categoria }}</option>
+                        @endforeach
+                    </select>
                 </div>
+
 
                 <!-- Repite para cada foto, video y archivo 3D con opción para mantener o reemplazar -->
                 <div class="grid grid-cols-2 gap-6">
                     @for ($i = 1; $i <= 3; $i++)
                         <div class="mt-6">
-                            <label for="foto{{ $i }}" class="text-gray-600 font-semibold text-sm">Foto {{ $i }}:</label>
+                            <label for="foto{{ $i }}" class="text-gray-600 font-semibold text-sm">Foto
+                                {{ $i }}:</label>
                             @if ($p->{'imagen' . $i})
-                                <img src="{{ asset($p->{'imagen' . $i}) }}" alt="Imagen actual {{ $i }}" class="mb-2" width="150">
+                                <img src="{{ asset($p->{'imagen' . $i}) }}" alt="Imagen actual {{ $i }}"
+                                    class="mb-2" width="150">
                             @endif
                             <input type="file" name="foto{{ $i }}" id="foto{{ $i }}"
                                 class="border border-gray-400 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-green-500">
@@ -94,7 +80,7 @@
                     <textarea name="descripcion" id="descripcion" required
                         class="border border-gray-400 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-green-500">{{ $p->descripcion }}</textarea>
                 </div>
-                
+
                 <div class="grid grid-cols-2 gap-6">
                     <div class="mt-6">
                         <label for="cant_min" class="text-gray-600 font-semibold text-sm">Stock Mínimo:</label>
@@ -109,8 +95,10 @@
                 </div>
 
                 <div class="mt-8 flex justify-end">
-                    <button class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full focus:outline-none focus:shadow-outline">Actualizar</button>
-                    <a href="{{ route('producto.index') }}" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-6 ml-4 rounded-full">Cancelar</a>
+                    <button
+                        class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full focus:outline-none focus:shadow-outline">Actualizar</button>
+                    <a href="{{ route('producto.index') }}"
+                        class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-6 ml-4 rounded-full">Cancelar</a>
                 </div>
             </form>
         </div>

@@ -61,14 +61,14 @@
                             class="border border-gray-400 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-green-500">
                     </div>
                     <div class="mb-6">
-                        <label for="color" class="text-gray-600 font-semibold text-sm">Color:</label>
-                        <select name="color" id="color"
+                        <label for="material" class="text-gray-600 font-semibold text-sm">Material:</label>
+                        <select name="material" id="material"
                             class="border border-gray-400 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-green-500">
-                            <option selected disabled>Elige un color</option>
-                            @forelse ($colores as $c)
+                            <option selected disabled>Elige un material</option>
+                            @forelse ($materiales as $c)
                                 <option value="{{ $c->id }}">{{ $c->nombre }}</option>
                             @empty
-                                <option disabled>Registra un nuevo color</option>
+                                <option disabled>Registra un nuevo material</option>
                             @endforelse
                         </select>
                     </div>

@@ -9,7 +9,7 @@
                 <thead class="bg-green-500 text-white">
                     <tr>
                         <th class="py-2 px-4 border-b text-left">#</th>
-                        <th class="py-2 px-4 border-b text-left">Marca</th>
+                        <th class="py-2 px-4 border-b text-left">Cantidad</th>
 
                     </tr>
                 </thead>
