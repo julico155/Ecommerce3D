@@ -9,7 +9,7 @@
                 <input type="hidden" name="producto_id" id="producto_id" value="{{ $producto->id }}">
                 <div class="mb-4">
                     <label for="prompt" class="block text-gray-700 text-sm font-bold mb-2">Prompt:</label>
-                    <input type="text" name="prompt" id="prompt" value="Fondo predeterminado" 
+                    <input type="text" name="prompt" id="prompt" value="Parque con vista al lago" 
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="flex justify-end">

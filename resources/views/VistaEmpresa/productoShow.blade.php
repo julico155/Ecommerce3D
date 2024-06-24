@@ -98,7 +98,7 @@
                             <p class="text-sm text-gray-600">Descripción: {{ $p->descripcion_3d }}</p>
                             <p class="text-sm text-gray-600">Precio del modelo 3D: {{ $p->precio_3d }}</p>
                             @if($p->es_formato_obj)
-                            <p class="text-sm text-gray-600">-Formato Obj</p>
+                            <p class="text-sm text-gray-600">-Formato: Obj</p>
                             @endif
                             @if($p->es_formato_gltf)
                             <p class="text-sm text-gray-600">-Formato gltF</p>
