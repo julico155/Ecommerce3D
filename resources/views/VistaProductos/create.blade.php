@@ -57,7 +57,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="video" class="text-gray-600 font-semibold text-sm">Video:</label>
-                        <input type="file" name="video" id="video" required
+                        <input type="file" name="video" id="video"
                             class="border border-gray-400 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-green-500">
                     </div>
                     <div class="mb-6">

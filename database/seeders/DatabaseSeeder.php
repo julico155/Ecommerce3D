@@ -220,39 +220,39 @@ class DatabaseSeeder extends Seeder
     public function cargarCategoria(){
 
         $cat = new categoria();
-        $cat->categoria = 'Poleras de hombre';
+        $cat->categoria = 'Parrillas';
         $cat->save();
 
         $cat = new categoria();
-        $cat->categoria = 'Poleras de mujer';
+        $cat->categoria = 'Hornos';
         $cat->save();
 
         $cat = new categoria();
-        $cat->categoria = 'Pantalones de hombre';
+        $cat->categoria = 'Pizzeros';
         $cat->save();
 
         $cat = new categoria();
-        $cat->categoria = 'Pantalones de mujer';
+        $cat->categoria = 'Caja China';
         $cat->save();
 
         $cat = new categoria();
-        $cat->categoria = 'Shorts';
+        $cat->categoria = 'Espiadero';
         $cat->save();
 
         $cat = new categoria();
-        $cat->categoria = 'Vestidos';
+        $cat->categoria = 'Freidoras';
         $cat->save();
 
         $cat = new categoria();
-        $cat->categoria = 'Blusas';
+        $cat->categoria = 'Planchas';
         $cat->save();
 
         $cat = new categoria();
-        $cat->categoria = 'Zapatos para hombres';
+        $cat->categoria = 'Carritos';
         $cat->save();
 
         $cat = new categoria();
-        $cat->categoria = 'Zapatos para mujer';
+        $cat->categoria = 'Cocinas';
         $cat->save();
 
     }

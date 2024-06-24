@@ -5,7 +5,7 @@
             <div class="flex flex-col items-center justify-center h-36">
                 <!-- Logo centrado -->
                 <a href="{{ route('welcome') }}" class="mb-4">
-                    <img class="block h-16 w-auto" src="{{ asset('img/logo.png') }}" alt="Stylo Store" width="30%">
+                    <img class="block h-16 w-auto" src="{{ asset('img/logo.png') }}" alt="Refracgas" width="30%">
                 </a>
                 
                 <!-- Navigation Links debajo del logo -->
