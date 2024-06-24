@@ -15,8 +15,14 @@ public/hot
 public_html/storage
 public_html/hot
 
+# Ignore log files and databases
+/storage/logs/*.log
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
 storage/*.key
-storage/
+storage/*
 .env
 Homestead.yaml
 Homestead.json
